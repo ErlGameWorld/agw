@@ -1,0 +1,39 @@
+%% ========================================
+%% 公共基础类型
+%% ========================================
+
+playerInfo {
+    int32 index;
+    string name;
+    int32 score;
+    int32 wins;
+    int32 losses;
+    int32 status; %% 0:offline, 1:online, 2:in_game
+}
+
+roomInfo {
+    string roomId;
+    string name;
+    int32 playerCount;
+    int32 status; %% 0:waiting, 1:playing
+}
+
+card {
+    int32 suit; %% 1-4, 0 for Joker
+    int32 value; %% 3-15, 16/17 for Joker
+}
+
+scoreInfo {
+    int32 index;
+    string name;
+    int32 score;
+    string result; %% win/loss
+}
+
+%% ----------------------------------------
+%% 错误通知 (通用)
+%% ----------------------------------------
+sc_error {
+    int32 code;
+    string msg;
+}

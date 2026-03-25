@@ -1,0 +1,11 @@
+{application, agw, [
+    {description, "An OTP application"},
+    {vsn, "1.0.0"},
+    {registered, []},
+    {mod, {agw_app, []}},
+    {applications, [kernel, stdlib]},
+    {env, []},
+    {modules, []},
+    {licenses, ["MIT"]},
+    {links, []}
+ ]}.

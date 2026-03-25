@@ -1,0 +1,49 @@
+## vm.args - Erlang VM 参数配置
+## 集群Cookie（同一集群节点需一致）
+-setcookie jjmj
+## 隐藏节点，不在epmd常规节点列表暴露
+-hidden
+## -noshell
+## -detached
+## 禁止与所有已知节点自动全连接，减少无效分布式连接
+-connect_all false
+## 异步线程池大小（+A）
+## 可选：正整数；值越大并发阻塞任务吞吐更高，但线程开销更大
++A 64
+## Erlang进程数上限（+P）
+## 可选范围：1024-134217727
++P 1048576
+## 端口（sockets/ports）上限（+Q）
+## 可选范围：1024-134217727
++Q 65536
+## ETS表数量上限（+e）
+## 可选：正整数；值越大可创建的ETS表越多
++e 65536
+## 分布式通信缓冲繁忙阈值（-zdbbl）
+## 单位：KB；4M = 4096
++zdbbl 4096
+## 调度器绑定策略（+sbt）
+## 可选：u | ns | ts | ps | s | nnts | nnps | tnnps | db
+## 作用：决定调度器线程与CPU绑定方式；db 通常更均衡
++sbt db
+## 普通调度器忙等待阈值（+sbwt）
+## 可选：none | very_short | short | medium | long | very_long
+## 建议：游戏服默认用 medium；追求省CPU可用 short/very_short；不建议轻易用 none
++sbwt medium
+## Dirty CPU调度器忙等待阈值（+sbwtdcpu）
+## 可选：none | very_short | short | medium | long | very_long
+## 建议：与 sbwt 同步，默认 medium；省CPU可用 short/very_short
++sbwtdcpu medium
+## Dirty I/O调度器忙等待阈值（+sbwtdio）
+## 可选：none | very_short | short | medium | long | very_long
+## 建议：默认 short，平衡I/O唤醒延迟和CPU占用
++sbwtdio short
+## 档位参考：
+## 低延迟优先：+sbwt medium +sbwtdcpu medium +sbwtdio short
+## 稍省CPU：+sbwt short +sbwtdcpu short +sbwtdio short
+## 极致省CPU：+sbwt very_short +sbwtdcpu very_short +sbwtdio very_short
+## 注意：+sbwt none 仅在可接受更高唤醒延迟时使用
+## 额外代码路径
+-pa ./config/app
+## 启动入口
+-s agw start
