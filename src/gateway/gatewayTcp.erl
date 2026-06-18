@@ -178,7 +178,10 @@ code_change(_OldVsn, State, _Extra) ->
 terminate(Reason, #gatewayState{socket = Socket, ip = IP, port = Port}) ->
 	?Debug("Gateway terminate: ~p, ~p:~p~n", [Reason, IP, Port]),
 	utCom:cancel_timer(get(?pdCheckTimer)),
-	catch gen_tcp:close(Socket),
+	try gen_tcp:close(Socket)
+	catch
+		_:_ -> ok
+	end,
 	ok.
 
 sendMsg(Socket, Msg) when is_binary(Msg) ->
